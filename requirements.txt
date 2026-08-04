@@ -1,0 +1,12 @@
+pandas
+numpy
+faker
+matplotlib
+plotly
+scikit-learn
+xgboost
+mlxtend
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
