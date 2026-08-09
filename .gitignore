@@ -1,3 +1,24 @@
+# Virtual Environment
+venv/
+
+# Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Generated data
+data/raw/
+data/processed/
+
+# IDE
+.vscode/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
