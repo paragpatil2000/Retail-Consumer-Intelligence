@@ -237,3 +237,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# SQLite database
+data/*.db
+data/*.sqlite
+data/*.sqlite3

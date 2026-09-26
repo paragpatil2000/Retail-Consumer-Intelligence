@@ -1,3 +1,10 @@
+PRAGMA foreign_keys = ON;
+
+
+-- ==========================================
+-- 1. CUSTOMERS
+-- ==========================================
+
 CREATE TABLE customers (
     customer_id INT PRIMARY KEY,
     first_name VARCHAR(50),
@@ -20,6 +27,10 @@ CREATE TABLE customers (
 );
 
 
+-- ==========================================
+-- 2. PRODUCTS
+-- ==========================================
+
 CREATE TABLE products (
     product_id INT PRIMARY KEY,
     product_name VARCHAR(100),
@@ -36,6 +47,10 @@ CREATE TABLE products (
 );
 
 
+-- ==========================================
+-- 3. STORES
+-- ==========================================
+
 CREATE TABLE stores (
     store_id INT PRIMARY KEY,
     store_name VARCHAR(100),
@@ -50,6 +65,11 @@ CREATE TABLE stores (
     total_employees INT,
     parking_available BOOLEAN
 );
+
+
+-- ==========================================
+-- 4. PROMOTIONS
+-- ==========================================
 
 CREATE TABLE promotions (
     promotion_id INT PRIMARY KEY,
@@ -67,14 +87,40 @@ CREATE TABLE promotions (
 );
 
 
+-- ==========================================
+-- 5. CALENDAR
+-- ==========================================
+
+CREATE TABLE calendar (
+    date DATE PRIMARY KEY,
+    date_key INT UNIQUE,
+    year INT,
+    quarter VARCHAR(5),
+    month INT,
+    month_name VARCHAR(20),
+    week_number INT,
+    day INT,
+    day_name VARCHAR(20),
+    day_of_week INT,
+    is_weekend BOOLEAN,
+    financial_year VARCHAR(20),
+    season VARCHAR(30),
+    festival VARCHAR(50)
+);
+
+
+-- ==========================================
+-- 6. TRANSACTIONS - FACT TABLE
+-- ==========================================
+
 CREATE TABLE transactions (
     transaction_id BIGINT PRIMARY KEY,
-    transaction_date DATE,
+    transaction_date DATE NOT NULL,
     transaction_time TIME,
 
-    customer_id INT,
-    product_id INT,
-    store_id INT,
+    customer_id INT NOT NULL,
+    product_id INT NOT NULL,
+    store_id INT NOT NULL,
     promotion_id INT,
 
     quantity INT,
@@ -88,25 +134,18 @@ CREATE TABLE transactions (
     coupon_used BOOLEAN,
     return_flag BOOLEAN,
 
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id),
-    FOREIGN KEY (store_id) REFERENCES stores(store_id),
-    FOREIGN KEY (promotion_id) REFERENCES promotions(promotion_id)
-);
+    FOREIGN KEY (customer_id)
+        REFERENCES customers(customer_id),
 
+    FOREIGN KEY (product_id)
+        REFERENCES products(product_id),
 
-CREATE TABLE calendar (
-    date_id DATE PRIMARY KEY,
-    day INT,
-    day_name VARCHAR(20),
-    week INT,
-    month INT,
-    month_name VARCHAR(20),
-    quarter INT,
-    year INT,
-    is_weekend BOOLEAN,
-    is_holiday BOOLEAN,
-    holiday_name VARCHAR(100),
-    season VARCHAR(30),
-    festival VARCHAR(50)
+    FOREIGN KEY (store_id)
+        REFERENCES stores(store_id),
+
+    FOREIGN KEY (promotion_id)
+        REFERENCES promotions(promotion_id),
+
+    FOREIGN KEY (transaction_date)
+        REFERENCES calendar(date)
 );
